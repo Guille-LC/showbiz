@@ -30,14 +30,17 @@ if fecha_evento:
     filtrados = filtrados[filtrados["fecha"] == fecha_evento.strftime("%Y-%m-%d")]
 
 # Mostrar resultados
-for _, evento in filtrados.iterrows():
-    st.image(evento["portada"], width=300)
-    st.subheader(evento["nombre"])
-    st.write(f"📍 {evento['lugar']}")
-    st.write(f"🗓 {evento['fecha']} - ⏰ {evento['hora']}")
-    st.write(f"💲 {evento['precio']}")
-    st.write(evento["descripcion"])
-    st.markdown(f"[Comprar entradas]({evento['boleteria']})", unsafe_allow_html=True)
-    st.markdown("---")
+if filtrados.empty:
+    st.write("No se encontraron eventos. Intenta con otros filtros o revisa la programación próximamente.")
+else:
+    for _, evento in filtrados.iterrows():
+        st.image(evento["portada"], width=300)
+        st.subheader(evento["nombre"])
+        st.write(f"📍 {evento['lugar']}")
+        st.write(f"🗓 {evento['fecha']} - ⏰ {evento['hora']}")
+        st.write(f"💲 {evento['precio']}")
+        st.write(evento["descripcion"])
+        st.markdown(f"[Comprar entradas]({evento['boleteria']})", unsafe_allow_html=True)
+        st.markdown("---")
 
 st.write("Encuentra más eventos próximamente en Showbiz.")
